@@ -1,6 +1,7 @@
 <?php
 /* 
- * Define environment constants - This file MUST be ignored from repository, left this one as example
+ * Create environment file: "env.php" . paste this file content and replace with your credentials
+ * env.php file MUST BE EXCLUDED from repository   
  */
 
 //SECURITY. Protect against direct access
