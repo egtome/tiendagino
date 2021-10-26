@@ -113,4 +113,11 @@ class ClientModel extends Model {
         
         return $this->getQuery($sql);            
     }
+
+    public function deleteClientById(): void
+    {
+        $id = $this->getId();
+        $sql = "DELETE FROM {$this->tableName} WHERE id = {$id};";   
+        $this->query($sql);        
+    }    
 }

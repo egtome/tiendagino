@@ -95,6 +95,13 @@ class ClientService
         return $client[0] ?? [];
     }
 
+    public function deleteClientById(int $clientId): void
+    {
+        $clientModel = new ClientModel();
+        $clientModel->setId($clientId); 
+        $clientModel->deleteClientById();
+    }
+
     public function getCitiesListHtmlAjax($defaultCity = null): string
     {
         $cities = $this->getAllCities();

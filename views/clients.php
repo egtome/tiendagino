@@ -27,7 +27,7 @@ defined('SITE_LOADED') OR exit('Access denied');
                 echo '<td>' . $client['name'] . '</td>' ;
                 echo '<td>' . $client['code'] . '</td>' ;
                 echo '<td><img id="user-image" src="assets/user-images/' . $image . '"></img></td>' ; 
-                echo '<td><a href="/clients/' . $client['id'] . '/edit">edit</a></td>' ;
+                echo '<td><a href="/clients/' . $client['id'] . '/edit">edit</a>&nbsp<a id="delete-client" href="/clients/' . $client['id'] . '/delete">delete</a></td>' ;
                 echo '</tr>';    
                 $r++;   
             }
@@ -58,6 +58,12 @@ defined('SITE_LOADED') OR exit('Access denied');
 $( document ).ready(function() {
     $('#addClientButton').click(function() {
         window.location.href = '/clients/create';
-    });  
+    });
+    $('#delete-client').click(function() {
+        if(confirm('Confirm delete client?')){
+            return true;
+        }
+        return false;
+    });        
 });    
 </script>

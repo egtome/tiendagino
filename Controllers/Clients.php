@@ -24,6 +24,17 @@ class Clients extends Controller
         echo $clientService->getCitiesListHtmlAjax($defaultCity);
     }
 
+    public function delete($clientId = null)
+    {
+        if (!empty($clientId) && is_numeric($clientId)) {
+            $clientService = $this->clientService;
+            $clientService->deleteClientImage($clientId);
+            $clientService->deleteClientById($clientId);
+        }
+        header('Location: /clients');
+        die();         
+    }
+
     public function edit($clientId = null)
     {
         if (!empty($clientId) && is_numeric($clientId)) {
