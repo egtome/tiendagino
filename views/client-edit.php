@@ -1,6 +1,7 @@
 <?php
 defined('SITE_LOADED') OR exit('Access denied');
 ?>
+<script src="/assets/js/loadCityAjax.js"></script>
 <body>
 <div class="login-form">
     <form action="/clients/update" method="post" enctype="multipart/form-data">
@@ -11,15 +12,8 @@ defined('SITE_LOADED') OR exit('Access denied');
             }
         ?>
         <div class="form-group">
-            <select name="city_id" placeholder="Client City" required="required" class="form-control">
-            <option value="">Select city...</option>
-            <?php     
-                foreach ($this->data['cities'] as $cities) { 
-                    $selected = $cities['id'] == $this->data['client']['city_id'] ? 'selected' : '';
-                    echo '<option value="' . $cities['id'] . '" ' . $selected . '>' . $cities['name'] . '</option>' ;  
-                }
-            ?>                
-            </select>
+            <input type="hidden" name="default_city" id="default_city" value="<?php echo $this->data['client']['city_id']; ?>" />
+            <select id="city_list_ajax" name="city_id" placeholder="Client City" required="required" class="form-control"></select>
         </div>
         <div class="form-group">
             <input value="<?php echo $this->data['client']['name'] ?>" name="name" type="text" class="form-control" placeholder="Client Name" required="required" />
@@ -53,6 +47,6 @@ defined('SITE_LOADED') OR exit('Access denied');
                 $("#delete_image_input").val('yes');
                 $("#display-image").css("display", "none");
             } 
-        });
+        });     
     });    
 </script>

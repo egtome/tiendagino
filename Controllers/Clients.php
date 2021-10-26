@@ -17,6 +17,13 @@ class Clients extends Controller
         $this->checkIfUserIsLogedIn();
     }
 
+    public function getCities()
+    {
+        $defaultCity = $_GET['default_city'];
+        $clientService = $this->clientService;
+        echo $clientService->getCitiesListHtmlAjax($defaultCity);
+    }
+
     public function edit($clientId = null)
     {
         if (!empty($clientId) && is_numeric($clientId)) {

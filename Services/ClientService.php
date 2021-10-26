@@ -95,4 +95,18 @@ class ClientService
         return $client[0] ?? [];
     }
 
+    public function getCitiesListHtmlAjax($defaultCity = null): string
+    {
+        $cities = $this->getAllCities();
+        $html = '<option value="">Select city...</option>';
+        foreach ($cities as $city) {
+            $cityId = $city['id'];
+            $cityName = $city['name'];
+            $selected = $cityId == $defaultCity ? 'selected' : '';
+            $html .= '<option value="' . $cityId . '" ' . $selected . '>' . $cityName . '</option>' ;  
+        }
+
+        return $html;
+    }
+
 }

@@ -1,6 +1,7 @@
 <?php
 defined('SITE_LOADED') OR exit('Access denied');
 ?>
+<script src="/assets/js/loadCityAjax.js"></script>
 <body>
 <div class="login-form">
     <form action="/clients/add" method="post" enctype="multipart/form-data">
@@ -11,14 +12,8 @@ defined('SITE_LOADED') OR exit('Access denied');
             }
         ?>
         <div class="form-group">
-            <select name="city_id" placeholder="Client City" required="required" class="form-control">
-            <option value="">Select city...</option>
-            <?php     
-                foreach ($this->data as $cities) { 
-                    echo '<option value="' . $cities['id'] . '">' . $cities['name'] . '</option>' ;  
-                }
-            ?>                
-            </select>
+            <input id="default_city" type="hidden" name="default_city" id="default_city" value="0" />
+            <select id="city_list_ajax" name="city_id" placeholder="Client City" required="required" class="form-control"></select>
         </div>
         <div class="form-group">
             <input name="name" type="text" class="form-control" placeholder="Client Name" required="required">
