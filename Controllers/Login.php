@@ -32,6 +32,15 @@ class Login extends Controller
         header($redirect);
     } 
 
+    public function exit()
+    {
+        $loginService = $this->loginService;
+        session_destroy();
+        $redirect = 'Location: ' . $loginService::ERROR_REDIRECT;
+        
+        header($redirect);        
+    }
+
     protected function checkIfUserIsAlreadyLogedIn(): void
     {
         $loginService = $this->loginService;
