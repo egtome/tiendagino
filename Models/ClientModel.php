@@ -49,17 +49,17 @@ class ClientModel extends Model {
 
     function setName(string $name): void 
     {
-        $this->name = $name;
+        $this->name = $this->getEscapedstring($name);
     }    
 
     function setCode(string $code): void 
     {
-        $this->code = $code;
+        $this->code = $this->getEscapedstring($code);
     }  
     
     function setPicture(?string $picture): void 
     {
-        $this->picture = $picture;
+        $this->picture = !empty($picture) ? $this->getEscapedstring($picture) : $picture;
     }      
     
     public function getAll(int $offset, int $perPage): ?array
@@ -76,7 +76,7 @@ class ClientModel extends Model {
         return $this->getQuery($sql);        
     }    
 
-    public function createClient():? int
+    public function createClient(): ?int
     {
         $cityId = $this->getCityId();
         $name = $this->getName();
@@ -90,7 +90,7 @@ class ClientModel extends Model {
         return (int) $this->getLastInsertedId();
     }
 
-    public function updateClient():? bool
+    public function updateClient(): ?bool
     {
         $id = $this->id;
         $cityId = $this->getCityId();
@@ -106,7 +106,7 @@ class ClientModel extends Model {
         return true;
     }
     
-    public function getCLientById():? array
+    public function getCLientById(): ?array
     {
         $id = $this->getId();
         $sql = "SELECT * FROM {$this->tableName} WHERE id = {$id};";

@@ -32,115 +32,82 @@ class Model{
     
     public function query($sql)
     {
-        if($this->conn->query($sql)){
-            return true;
-        }else{
+        $sql = $sql;
+        if (!$this->conn->query($sql)) {
             return mysqli_error($this->conn);
         }
+
+        return true;
     }
 
-    public function getLastInsertedId()
+    public function getLastInsertedId(): int
     {
         return $this->conn->insert_id;
     }
     
     public function getQuery($sql)
     {
-        $r = [];
-        $res = $this->conn->query($sql);
-        if($res){
-            while($row = mysqli_fetch_assoc($res)){
-                $r[] = $row;
-            }
-            return $r;
-        }else{
+        $sql = $sql;
+        $data = [];
+        $result = $this->conn->query($sql);
+        if (!$result) {
             return mysqli_error($this->conn);
         }
+        while($row = mysqli_fetch_assoc($result)){
+            $data[] = $row;
+        }
+
+        return $data;
     }
     
-    public function close()
+    public function close(): void
     {
         mysqli_close($this->conn);
         $this->conn = null;
     }
 
-    /**
-     * Get the value of host
-     */ 
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
 
-    /**
-     * Set the value of host
-     *
-     * @return  self
-     */ 
-    public function setHost($host)
+    public function setHost(string $host): void
     {
         $this->host = $host;
-
-        return $this;
     }
 
-    /**
-     * Get the value of db
-     */ 
     public function getDb()
     {
         return $this->db;
     }
 
-    /**
-     * Set the value of db
-     *
-     * @return  self
-     */ 
-    public function setDb($db)
+    public function setDb($db): void
     {
         $this->db = $db;
-
-        return $this;
     }
 
-    /**
-     * Get the value of user
-     */ 
-    public function getUser()
+    public function getUser(): string
     {
         return $this->user;
     }
 
-    /**
-     * Set the value of user
-     *
-     * @return  self
-     */ 
-    public function setUser($user)
+    public function setUser($user): void
     {
         $this->user = $user;
-
-        return $this;
     }
 
-    /**
-     * Get the value of passsword
-     */ 
-    public function getPasssword()
+    public function getPasssword(): string
     {
         return $this->passsword;
     }
 
-    /**
-     * Set the value of passsword
-     *
-     * @return  self
-     */ 
-    public function setPasssword($passsword)
+    public function setPasssword($passsword): void
     {
         $this->passsword = $passsword;
+    }
 
-        return $this;
+    protected function getEscapedstring(string $query): string
+    {
+        return mysqli_real_escape_string($this->conn, $query);
     }
 }
